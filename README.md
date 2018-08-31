@@ -24,6 +24,6 @@ fi
 
 ## Thanks
 
-* **Samuel Brabas** - *Initial nginx helm chart * - https://github.com/samuelb
+* **Samuel Brabas** -  Initial nginx helm chart  - https://github.com/samuelb
 
 
