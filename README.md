@@ -22,3 +22,8 @@ else
 fi
 ```
 
+## Thanks
+
+* **Samuel Brabas** - *Initial nginx helm chart * - https://github.com/samuelb
+
+
