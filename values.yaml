@@ -1,0 +1,53 @@
+# Default values for nginx-still.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: true
+  annotations: 
+    "kubernetes.io/ingress.class": "traefik"
+    "traefik.frontend.rule.type": "PathPrefix"
+    "traefik.frontend.redirect.entryPoint": "https"
+    "traefik.ingress.kubernetes.io/priority": "1"
+  path: /
+  tls: []
+
+
+resources:
+  limits:
+   cpu: 100m
+   memory: 128Mi
+  requests:
+   cpu: 1m
+   memory: 32Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configs:
+  default: |-
+    server {
+      listen 8080 default_server;
+      server_name _;
+      server_tokens off;
+      location / {
+        rewrite ^/([^/.]+)$ https://$host/$1/ redirect;
+        #replace myappurl url with url of app you want to redirect if nothig else matches 
+        #return 301 https://$host/myappurl ;
+      }
+    }
